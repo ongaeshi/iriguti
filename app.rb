@@ -4,8 +4,10 @@ require "pocket"
 
 enable :sessions
 
-CALLBACK_URL = "http://localhost:4567/oauth/callback"
-# CALLBACK_URL = "http://iriguti.herokuapp.com/oauth/callback"
+p ENV['RACK_ENV'] 
+
+# CALLBACK_URL = "http://localhost:4567/oauth/callback"
+CALLBACK_URL = "http://iriguti.herokuapp.com/oauth/callback"
 
 Pocket.configure do |config|
   config.consumer_key = '29328-0046aa03e13e9ff2fccd92c8'
