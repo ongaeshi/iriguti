@@ -69,10 +69,16 @@ get "/retrieve" do
   html += "<ul>\n"
 
   info["list"].to_a.sort_by{ rand }.take(3).each do |v|
-    html += "<li><a href=\"#{v[1]["resolved_url"]}\" target=\"_blank\">#{v[1]["resolved_title"]}</a></li>\n"
+    html += "<li><a href=\"#{v[1]["resolved_url"]}\" target=\"_blank\">#{v[1]["resolved_title"]}</a> <a href=\"/archive/#{v[1]["item_id"]}\" target=\"_blank\">[DONE]</a></li>"
   end
   
   html += "</ul>"
 
   html
+end
+
+get "/archive/:item_id" do
+  client = Pocket.client(:access_token => session[:access_token])
+  info = client.modify([{action: "archive", item_id: params[:item_id]}])
+  "Finish reading the #{params[:item_id]}"
 end
