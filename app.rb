@@ -65,16 +65,21 @@ get "/retrieve" do
   # info = client.retrieve(:detailType => :complete, :count => 3)
   info = client.retrieve(:detailType => :simple)
 
-  html = "<h1>Iriguti</h1>"
-  html += "<ul>\n"
+  items = info["list"].to_a.sort_by{ rand }.take(3).map do |v|
+    item  = v[1]
+    url   = item["resolved_url"]
+    title = item["resolved_title"]
 
-  info["list"].to_a.sort_by{ rand }.take(3).each do |v|
-    html += "<li><a href=\"#{v[1]["resolved_url"]}\" target=\"_blank\">#{v[1]["resolved_title"]}</a> <a href=\"/archive/#{v[1]["item_id"]}\" target=\"_blank\">[DONE]</a></li>"
-  end
-  
-  html += "</ul>"
+    "<li><a href=\"#{url}\" target=\"_blank\">#{title}</a> " +
+      "<a href=\"/archive/#{item["item_id"]}\" target=\"_blank\">[DONE]</a></li>"
+  end.join("\n")
 
-  html
+  <<EOF
+<h1>Iriguti</h1>
+<ul>
+#{items}
+</ul>
+EOF
 end
 
 get "/archive/:item_id" do
