@@ -70,15 +70,19 @@ get "/retrieve" do
     url   = item["resolved_url"]
     title = item["resolved_title"]
 
-    "<li><a href=\"#{url}\" target=\"_blank\">#{title}</a> " +
-      "<a href=\"/archive/#{item["item_id"]}\" target=\"_blank\">[DONE]</a></li>"
+    <<EOF
+<tr>
+  <td><a href=\"#{url}\" target=\"_blank\">#{title}</a></td>
+  <td><a href=\"/archive/#{item["item_id"]}\" target=\"_blank\">[DONE]</a></td>
+</tr>
+EOF
   end.join("\n")
 
   <<EOF
 <h1>Iriguti</h1>
-<ul>
+<table>
 #{items}
-</ul>
+</table>
 EOF
 end
 
