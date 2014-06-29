@@ -20,14 +20,33 @@ get "/" do
   puts "GET /"
   puts "session: #{session}"
 
-  if session[:access_token]
-    '
-<a href="/add?url=http://getpocket.com">Add Pocket Homepage</a>
-<a href="/retrieve">Retrieve single item</a>
-    '
-  else
-    '<a href="/oauth/connect">Connect with Pocket</a>'
+  unless session[:access_token]
+    return '<a href="/oauth/connect">Connect with Pocket</a>'
   end
+
+  client = Pocket.client(:access_token => session[:access_token])
+  # info = client.retrieve(:detailType => :complete, :count => 3)
+  info = client.retrieve(:detailType => :simple)
+
+  items = info["list"].to_a.sort_by{ rand }.take(3).map do |v|
+    item  = v[1]
+    url   = item["resolved_url"]
+    title = item["resolved_title"]
+
+    <<EOF
+<tr>
+  <td><a href=\"#{url}\" target=\"_blank\">#{title}</a></td>
+  <td><a href=\"/archive/#{item["item_id"]}\" target=\"_blank\">[DONE]</a></td>
+</tr>
+EOF
+  end.join("\n")
+
+  <<EOF
+<h1>Iriguti</h1>
+<table>
+#{items}
+</table>
+EOF
 end
 
 get "/oauth/connect" do
@@ -52,38 +71,6 @@ get "/oauth/callback" do
   puts session[:access_token]
   puts "session: #{session}"
   redirect "/"
-end
-
-get '/add' do
-  client = Pocket.client(:access_token => session[:access_token])
-  info = client.add :url => 'http://getpocket.com'
-  "<pre>#{info}</pre>"
-end
-
-get "/retrieve" do
-  client = Pocket.client(:access_token => session[:access_token])
-  # info = client.retrieve(:detailType => :complete, :count => 3)
-  info = client.retrieve(:detailType => :simple)
-
-  items = info["list"].to_a.sort_by{ rand }.take(3).map do |v|
-    item  = v[1]
-    url   = item["resolved_url"]
-    title = item["resolved_title"]
-
-    <<EOF
-<tr>
-  <td><a href=\"#{url}\" target=\"_blank\">#{title}</a></td>
-  <td><a href=\"/archive/#{item["item_id"]}\" target=\"_blank\">[DONE]</a></td>
-</tr>
-EOF
-  end.join("\n")
-
-  <<EOF
-<h1>Iriguti</h1>
-<table>
-#{items}
-</table>
-EOF
 end
 
 get "/archive/:item_id" do
