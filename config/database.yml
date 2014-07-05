@@ -23,8 +23,4 @@ default: &default
 
 production:
   <<: *default
-  database: myapp_production
-  password:
-
-development:
-  host: localhost
+  url: <%= ENV['DATABASE_URL'] %>
