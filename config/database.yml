@@ -23,4 +23,8 @@ default: &default
 
 production:
   <<: *default
+  database: myapp_production
+  password:
 
+development:
+  host: localhost
