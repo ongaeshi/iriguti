@@ -2,7 +2,7 @@
 <table>
 <% @items.each do |item| %>
   <tr>
-    <td><a href="<%= item["resolved_url"] %>" target="_blank"><%= item["resolved_title"] %></a></td>
+    <td><a href="<%= item["resolved_url"] %>" target="_blank"><%= title(item) %></a></td>
     <td><a href="<%= "/archive/#{item["item_id"]}" %>" target=\"_blank\">[DONE]</a></td>
   </tr>
 <% end %>
