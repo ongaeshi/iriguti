@@ -1,2 +1,9 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<h1>Iriguti</h1>
+<table>
+<% @items.each do |item| %>
+  <tr>
+    <td><a href="<%= item["resolved_url"] %>" target="_blank"><%= item["resolved_title"] %></a></td>
+    <td><a href="<%= "/archive/#{item["item_id"]}" %>" target=\"_blank\">[DONE]</a></td>
+  </tr>
+<% end %>
+</table>
