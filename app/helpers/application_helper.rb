@@ -6,8 +6,9 @@ module ApplicationHelper
   TITLE_LENGTH = 64
 
   def title(item)
-    title = item["resolved_title"]
-    title = item["given_title"] if title.empty?
+    title = item["given_title"]
+    # title = item["resolved_title"]
+    # title = item["given_title"] if title.empty?
     title = "no title" if title.empty?
 
     if title.length > TITLE_LENGTH
