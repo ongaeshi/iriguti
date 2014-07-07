@@ -1,9 +1,12 @@
-<h1>Iriguti</h1>
+<% if current_user %>
 <table>
 <% @items.each do |item| %>
   <tr>
     <td><a href="<%= item["resolved_url"] %>" target="_blank"><%= title(item) %></a></td>
     <td><a href="<%= "/archive/#{item["item_id"]}" %>" target=\"_blank\">[DONE]</a></td>
   </tr>
+<% end %>
+<% else %>
+<%= link_to "Sign in with Pocket", "/auth/pocket" %>
 <% end %>
 </table>
