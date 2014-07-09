@@ -4,14 +4,11 @@
 
 $ ->
     $('a.check').click (e) ->
-        if $(this).attr('data-kind') != 'add'
-            link = $(this).parent().prev().children().first()
+        link = $(this).parent().prev().children()
+        if !link.is("del")
             $.post('/archive', { item_id: $(this).data('item-id') })
-            $(this).attr('data-kind', 'add')
             link.wrap('<del></del>')
         else
-            link = $(this).parent().prev().children().children().first()
-            $.post('/add', {url: link.attr('href')})
-            $(this).removeAttr('data-kind')
-            link.unwrap()
+            $.post('/add', {url: link.children().attr('href')})
+            link.children().unwrap()
         false
