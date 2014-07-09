@@ -6,7 +6,7 @@ $ ->
     $('a.check').click (e) ->
         $.post(
             '/archive'
-            { item_id: $(this).attr('itemid') }
+            { item_id: $(this).data('item-id') }
         );
         $(this).parent().prev().children().wrap('<del></del>')
         false
