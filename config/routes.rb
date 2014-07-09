@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'home/index'
   get "/archive/:item_id" => "home#archive"
   post "/archive" => "home#archive"
+  post "/add" => "home#add"
   get  '/auth/:provider/callback', :to => 'sessions#create'
   post '/auth/:provider/callback', :to => 'sessions#create'
   get  '/signout' => 'sessions#destroy', :as => :signout

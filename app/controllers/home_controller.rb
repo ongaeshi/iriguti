@@ -14,4 +14,9 @@ class HomeController < ApplicationController
     client = Pocket.client(:access_token => session[:token])
     info = client.modify([{action: "archive", item_id: params[:item_id]}])
   end
+
+  def add
+    client = Pocket.client(:access_token => session[:token])
+    info = client.add({url: params[:url]})
+  end
 end

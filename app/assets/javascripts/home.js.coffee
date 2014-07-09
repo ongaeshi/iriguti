@@ -4,9 +4,19 @@
 
 $ ->
     $('a.check').click (e) ->
-        $.post(
-            '/archive'
-            { item_id: $(this).data('item-id') }
-        );
-        $(this).parent().prev().children().wrap('<del></del>')
+        if $(this).attr('data-kind') == 'add'
+            $.post(
+                '/add'
+                { url: $(this).parent().prev().children().children().first().attr('href') }
+            );
+            $(this).removeAttr('data-kind')
+            $(this).parent().prev().children().children().unwrap()
+        else
+            $.post(
+                '/archive'
+                { item_id: $(this).data('item-id') }
+                (data, textStatus, jqXHR) =>
+            );
+            $(this).attr('data-kind', 'add')
+            $(this).parent().prev().children().wrap('<del></del>')
         false
