@@ -48,6 +48,9 @@ gem 'omniauth-pocket'
 # Use Pocket REST and Search APIs
 gem 'pocket-ruby', '~> 0.0.5'
 
+# Rails 3 helpers to manage google analytics tracking.
+gem 'google-analytics-rails'
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'

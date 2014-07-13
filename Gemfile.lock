@@ -42,6 +42,7 @@ GEM
       multipart-post (~> 1.2.0)
     faraday_middleware (0.9.1)
       faraday (>= 0.7.4, < 0.10)
+    google-analytics-rails (0.0.6)
     hashie (2.1.2)
     hike (1.2.3)
     i18n (0.6.9)
@@ -150,6 +151,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
+  google-analytics-rails
   jbuilder (~> 2.0)
   jquery-rails
   omniauth
