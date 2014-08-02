@@ -7,8 +7,7 @@ module ApplicationHelper
 
   def title(item)
     title = item["given_title"]
-    # title = item["resolved_title"]
-    # title = item["given_title"] if title.empty?
+    title = item["resolved_title"] if title.empty?
     title = "no title" if title.empty?
 
     if title.length > TITLE_LENGTH
