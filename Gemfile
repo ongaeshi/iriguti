@@ -52,6 +52,7 @@ gem 'pocket-ruby', '~> 0.0.5'
 gem 'google-analytics-rails'
 
 group :production do
-  gem 'pg'
-  gem 'rails_12factor'
+  gem 'sqlite3'
+  # gem 'pg'
+  # gem 'rails_12factor'
 end
