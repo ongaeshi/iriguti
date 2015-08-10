@@ -1,7 +1,4 @@
-FROM rails:onbuild
+FROM seapy/rails-nginx-unicorn
 
-RUN rake db:migrate
-
-RUN RAILS_ENV=production rake db:migrate
-RUN RAILS_ENV=production rake assets:precompile
+EXPOSE 80
 
